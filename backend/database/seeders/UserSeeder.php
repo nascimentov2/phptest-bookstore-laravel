@@ -19,7 +19,6 @@ class UserSeeder extends Seeder
             'email' => 'bookstore@bookstore.local',
             'password' => bcrypt('Bookstore@Local'),
             'email_verified_at' => now(),
-            'is_active' => 1
         ]);
     }
 }

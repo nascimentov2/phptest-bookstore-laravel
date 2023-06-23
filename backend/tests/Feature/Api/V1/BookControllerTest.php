@@ -72,14 +72,30 @@ class BookControllerTest extends TestCase
 
         $book_id = rand(0,9); //we created 10 books so the data provider returns keys from 0 to 9 in array
 
-        $request = $this->get('/api/v1/books/'.$book_id);
+        $request = $this->get('/api/v1/books/'.$books[$book_id]['id']);
 
         $request->assertStatus(200);
     }
 
     public function test_update_single_book(): void
     {
-        //$this->createAndAuthenticateTestUser();
+        $this->createAndAuthenticateTestUser();
+
+        $book = self::booksDataProvider(1);
+
+        $book_data = [
+            'name'  => 'Test Book Update',
+            'isbn'  => '9781012345123',
+            'value' => '10.50'
+        ];
+
+        $request = $this->put('/api/v1/books/'.$book[0]['id'], $book_data);
+
+        $request->assertStatus(200);
+
+        $updated = Book::where($book_data)->get()->toArray();
+
+        $this->assertCount(1, $updated);
     }
 
     public function test_delete_single_book(): void
