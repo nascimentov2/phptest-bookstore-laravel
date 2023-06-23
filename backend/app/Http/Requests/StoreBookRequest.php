@@ -22,7 +22,14 @@ class StoreBookRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name'  => 'required|string|max:255',
+            'isbn'  => [
+                'required',
+                'numeric',
+                'regex:/^(?=(?:.{10}|.{13})$)[0-9]*$/', //ISBN must be a number with 10 or 13 chars
+                'unique:books' //no duplicated ISBN are allowed
+            ],
+            'value' => 'required|numeric|gt:0',
         ];
     }
 }

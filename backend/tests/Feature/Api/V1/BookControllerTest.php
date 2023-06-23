@@ -57,9 +57,9 @@ class BookControllerTest extends TestCase
 
         $request = $this->post('/api/v1/books', $book);
 
-        $request->assertStatus(200);
+        $request->assertStatus(201);
 
-        $created = Book::find($book)->toArray();
+        $created = Book::where($book)->get()->toArray();
 
         $this->assertCount(1, $created);
     }
