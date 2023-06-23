@@ -4,6 +4,7 @@ namespace Tests\Feature\Api\V1;
 
 use App\Models\Book;
 use App\Models\User;
+use Database\Factories\BookFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\URL;
@@ -35,7 +36,7 @@ class BookControllerTest extends TestCase
     {
         $this->createAndAuthenticateTestUser();
 
-        $books = self::booksDataProvider(1);
+        $books = self::booksDataProvider(10);
 
         $request = $this->get('/api/v1/books');
 
@@ -46,22 +47,44 @@ class BookControllerTest extends TestCase
 
     public function test_create_new_book(): void
     {
+        $this->createAndAuthenticateTestUser();
 
+        $book = [
+            'name'  => fake()->words(rand(3,7), true),
+            'isbn'  => fake()->isbn13(),
+            'value' => fake()->randomFloat(2,1,1000)
+        ];
+
+        $request = $this->post('/api/v1/books', $book);
+
+        $request->assertStatus(200);
+
+        $created = Book::find($book)->toArray();
+
+        $this->assertCount(1, $created);
     }
 
     public function test_retrieve_single_book(): void
     {
+        $this->createAndAuthenticateTestUser();
 
+        $books = self::booksDataProvider(10);
+
+        $book_id = rand(0,9); //we created 10 books so the data provider returns keys from 0 to 9 in array
+
+        $request = $this->get('/api/v1/books/'.$book_id);
+
+        $request->assertStatus(200);
     }
 
     public function test_update_single_book(): void
     {
-
+        //$this->createAndAuthenticateTestUser();
     }
 
     public function test_delete_single_book(): void
     {
-
+        //$this->createAndAuthenticateTestUser();
     }
 
     public static function endPointsDataProvider(): array
@@ -78,7 +101,9 @@ class BookControllerTest extends TestCase
 
     public static function booksDataProvider(int $amount=1): array
     {
-        return Book::factory($amount)->create()->toArray();
+        $books = Book::factory($amount)->create()->toArray();
+        
+        return $books;
     }
 
     private function createAndAuthenticateTestUser(): void
