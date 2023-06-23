@@ -4,7 +4,6 @@ namespace Tests\Feature\Api\V1;
 
 use App\Models\Book;
 use App\Models\User;
-use Database\Factories\BookFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\URL;
@@ -100,7 +99,21 @@ class BookControllerTest extends TestCase
 
     public function test_delete_single_book(): void
     {
-        //$this->createAndAuthenticateTestUser();
+        $this->createAndAuthenticateTestUser();
+
+        $book = self::booksDataProvider(1);
+
+        $exists = Book::where($book[0])->get()->toArray();
+
+        $this->assertCount(1, $exists);
+
+        $request = $this->delete('/api/v1/books/'.$book[0]['id']);
+
+        $request->assertStatus(200);
+
+        $not_exists = Book::where($book[0])->get()->toArray();
+
+        $this->assertCount(0, $not_exists);
     }
 
     public static function endPointsDataProvider(): array
