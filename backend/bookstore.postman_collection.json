@@ -1,0 +1,199 @@
+{
+	"info": {
+		"_postman_id": "db8d4b26-cb69-4caf-af86-2e200468bea5",
+		"name": "Book Store",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28155422"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/v1/login?email=bookstore@bookstore.local&password=Bookstore@Local",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"login"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "bookstore@bookstore.local",
+							"description": "Login created using UserSeeder"
+						},
+						{
+							"key": "password",
+							"value": "Bookstore@Local"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Books - List all",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/v1/books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Books - Create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/v1/books?name=My new book - Postman CREATE&isbn=9781234567891&value=10.49",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"books"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "My new book - Postman CREATE"
+						},
+						{
+							"key": "isbn",
+							"value": "9781234567891"
+						},
+						{
+							"key": "value",
+							"value": "10.49"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Books - Retrieve",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/v1/books/10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"books",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Books - Update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/v1/books/10?name=My book updated - Postman UPDATE&isbn=9780000012345&value=100.90",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"books",
+						"10"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "My book updated - Postman UPDATE"
+						},
+						{
+							"key": "isbn",
+							"value": "9780000012345"
+						},
+						{
+							"key": "value",
+							"value": "100.90"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Books - Delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/v1/books/10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"books",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/v1/logout",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
