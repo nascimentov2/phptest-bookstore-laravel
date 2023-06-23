@@ -29,7 +29,7 @@ class BookController extends Controller
     {
         $book = Book::create($request->validated());
 
-        return $this->show($book);
+        return BookResource::make($book)->additional(['message' => 'Book created successfully.']);
     }
 
     /**
@@ -43,11 +43,11 @@ class BookController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateBookRequest $request, Book $book)
+    public function update(UpdateBookRequest $request, Book $book): BookResource
     {
         $book->update($request->validated());
 
-        return $this->show($book);
+        return BookResource::make($book)->additional(['message' => 'Book updated successfully.']);
     }
 
     /**
@@ -57,6 +57,6 @@ class BookController extends Controller
     {
         $book->delete();
 
-        return response()->json(['message' => 'Book deleted successfully']);
+        return response()->json(['message' => 'Book deleted successfully.']);
     }
 }
