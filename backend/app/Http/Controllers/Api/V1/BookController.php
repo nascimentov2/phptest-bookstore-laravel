@@ -8,16 +8,15 @@ use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 use App\Http\Resources\BookResource;
 use App\Models\Book;
-use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class BookController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request): AnonymousResourceCollection
+    public function index(): JsonResource
     {
         return BookResource::collection(Book::all());
     }
@@ -29,7 +28,7 @@ class BookController extends Controller
     {
         $book = Book::create($request->validated());
 
-        return BookResource::make($book)->additional(['message' => 'Book created successfully.']);
+        return BookResource::make($book)->additional(['message' => __('Book created successfully.')]);
     }
 
     /**
@@ -47,16 +46,16 @@ class BookController extends Controller
     {
         $book->update($request->validated());
 
-        return BookResource::make($book)->additional(['message' => 'Book updated successfully.']);
+        return BookResource::make($book)->additional(['message' => __('Book updated successfully.')]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Book $book)
+    public function destroy(Book $book): JsonResponse
     {
         $book->delete();
 
-        return response()->json(['message' => 'Book deleted successfully.']);
+        return response()->json(['message' => __('Book deleted successfully.')]);
     }
 }
