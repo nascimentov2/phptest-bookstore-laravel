@@ -16,3 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return ['BookStore' => 'Web API version 0.1beta'];
 });
+
+Route::fallback(function(){
+    return response()->json([
+        'message' => 'Page Not Found. If error persists, contact '.env('SUPPORT_CONTACT')], 404);
+});

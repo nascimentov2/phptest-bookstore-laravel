@@ -24,8 +24,3 @@ Route::prefix('v1')->group(function () {
 });
 
 require __DIR__.'/auth.php';
-
-Route::fallback(function(){
-    return response()->json([
-        'message' => 'Page Not Found. If error persists, contact '.env('SUPPORT_CONTACT')], 404);
-});

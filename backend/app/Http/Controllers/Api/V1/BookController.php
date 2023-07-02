@@ -52,9 +52,9 @@ class BookController extends Controller
     {
         $this->authorize(__FUNCTION__, $book);
 
-        $updated = $book->update($request->validated());
+        $book->update($request->validated());
 
-        return BookResource::make($updated)->additional(['message' => __('Book updated successfully.')]);
+        return BookResource::make($book)->additional(['message' => __('Book updated successfully.')]);
     }
 
     /**
