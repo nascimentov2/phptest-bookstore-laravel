@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 
-use App\Http\Requests\StoreBookRequest;
-use App\Http\Requests\UpdateBookRequest;
+use App\Http\Requests\Book\StoreBookRequest;
+use App\Http\Requests\Book\UpdateBookRequest;
 use App\Http\Resources\BookResource;
 use App\Models\Book;
 use Illuminate\Http\JsonResponse;
@@ -16,19 +16,23 @@ class BookController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): JsonResource
+    public function index(Book $book): JsonResource
     {
+        $this->authorize(__FUNCTION__, $book);
+
         return BookResource::collection(Book::all());
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreBookRequest $request): BookResource
+    public function store(StoreBookRequest $request, Book $book): BookResource
     {
-        $book = Book::create($request->validated());
+        $this->authorize(__FUNCTION__, $book);
 
-        return BookResource::make($book)->additional(['message' => __('Book created successfully.')]);
+        $created = Book::create($request->validated());
+
+        return BookResource::make($created)->additional(['message' => __('Book created successfully.')]);
     }
 
     /**
@@ -36,6 +40,8 @@ class BookController extends Controller
      */
     public function show(Book $book): BookResource
     {
+        $this->authorize(__FUNCTION__, $book);
+
         return BookResource::make($book);
     }
 
@@ -44,9 +50,11 @@ class BookController extends Controller
      */
     public function update(UpdateBookRequest $request, Book $book): BookResource
     {
-        $book->update($request->validated());
+        $this->authorize(__FUNCTION__, $book);
 
-        return BookResource::make($book)->additional(['message' => __('Book updated successfully.')]);
+        $updated = $book->update($request->validated());
+
+        return BookResource::make($updated)->additional(['message' => __('Book updated successfully.')]);
     }
 
     /**
@@ -54,6 +62,8 @@ class BookController extends Controller
      */
     public function destroy(Book $book): JsonResponse
     {
+        $this->authorize(__FUNCTION__, $book);
+        
         $book->delete();
 
         return response()->json(['message' => __('Book deleted successfully.')]);

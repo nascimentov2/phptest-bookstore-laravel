@@ -12,20 +12,20 @@ class BookControllerTest extends TestCase
 
     public function test_index_full_list(): void
     {
-        $this->createTestUser();
+        $this->createAndAuthenticateTestUser();
 
         $books = self::booksDataProvider(10);
 
-        $request = $this->get('/api/v1/books');
+        $request = $this->get(route('books.index'));
 
         $request->assertStatus(200);
 
         $request->assertJson(['data' => $books]);
     }
 
-    public function test_create_new_book(): void
+    public function test_create_single_book(): void
     {
-        $this->createTestUser();
+        $this->createAndAuthenticateTestUser();
 
         $book = [
             'name'  => fake()->words(rand(3,7), true),
@@ -33,7 +33,7 @@ class BookControllerTest extends TestCase
             'value' => fake()->randomFloat(2,1,1000)
         ];
 
-        $request = $this->post('/api/v1/books', $book);
+        $request = $this->post(route('books.store'), $book);
 
         $request->assertStatus(201);
 
@@ -44,20 +44,20 @@ class BookControllerTest extends TestCase
 
     public function test_retrieve_single_book(): void
     {
-        $this->createTestUser();
+        $this->createAndAuthenticateTestUser();
 
         $books = self::booksDataProvider(10);
 
         $book_id = rand(0,9); //we created 10 books so the data provider returns keys from 0 to 9 in array
 
-        $request = $this->get('/api/v1/books/'.$books[$book_id]['id']);
+        $request = $this->get(route('books.show', $books[$book_id]['id']));
 
         $request->assertStatus(200);
     }
 
     public function test_update_single_book(): void
     {
-        $this->createTestUser();
+        $this->createAndAuthenticateTestUser();
 
         $book = self::booksDataProvider(1);
 
@@ -67,7 +67,7 @@ class BookControllerTest extends TestCase
             'value' => '10.50'
         ];
 
-        $request = $this->put('/api/v1/books/'.$book[0]['id'], $book_data);
+        $request = $this->put(route('books.update', $book[0]['id']), $book_data);
 
         $request->assertStatus(200);
 
@@ -78,7 +78,7 @@ class BookControllerTest extends TestCase
 
     public function test_delete_single_book(): void
     {
-        $this->createTestUser();
+        $this->createAndAuthenticateTestUser();
 
         $book = self::booksDataProvider(1);
 
@@ -86,7 +86,7 @@ class BookControllerTest extends TestCase
 
         $this->assertCount(1, $exists);
 
-        $request = $this->delete('/api/v1/books/'.$book[0]['id']);
+        $request = $this->delete(route('books.destroy', $book[0]['id']));
 
         $request->assertStatus(200);
 

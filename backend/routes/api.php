@@ -21,9 +21,9 @@ Route::prefix('v1')->group(function () {
     Route::middleware(['auth:sanctum'])->group(function(){
         Route::apiResource('/books', BookController::class);
     });
-
-    require __DIR__.'/auth.php';
 });
+
+require __DIR__.'/auth.php';
 
 Route::fallback(function(){
     return response()->json([

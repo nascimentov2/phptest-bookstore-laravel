@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Book;
 
-class UpdateBookRequest extends StoreBookRequest
+use Illuminate\Foundation\Http\FormRequest;
+
+class StoreBookRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +27,7 @@ class UpdateBookRequest extends StoreBookRequest
                 'required',
                 'numeric',
                 'regex:/^(?=(?:.{10}|.{13})$)[0-9]*$/', //ISBN must be a number with 10 or 13 chars
-                'unique:books,isbn,'.$this->book->id //no duplicated ISBN are allowed
+                'unique:books' //no duplicated ISBN are allowed
             ],
             'value' => 'required|numeric|gt:0',
         ];

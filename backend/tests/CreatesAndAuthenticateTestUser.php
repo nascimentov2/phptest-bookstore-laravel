@@ -7,7 +7,7 @@ use App\Models\User;
 
 trait CreatesAndAuthenticateTestUser
 {
-    public function createTestUser(): void
+    public function createAndAuthenticateTestUser(): void
     {   
         $user = [
             'name' => 'TestUser',

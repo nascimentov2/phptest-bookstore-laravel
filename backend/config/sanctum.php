@@ -63,4 +63,6 @@ return [
         'encrypt_cookies' => App\Http\Middleware\EncryptCookies::class,
     ],
 
+    'prefix' => env('API_PREFIX', '').'/auth',
+
 ];

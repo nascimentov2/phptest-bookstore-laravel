@@ -19,7 +19,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return response()->json(['message' => 'User authenticated successfully.']);
+        return response()->json(['message' => __('User authenticated successfully.')]);
     }
 
     /**
@@ -33,6 +33,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return response()->json(['message' => 'User signed out successfully.']);
+        return response()->json(['message' => __('User signed out successfully.')]);
     }
 }

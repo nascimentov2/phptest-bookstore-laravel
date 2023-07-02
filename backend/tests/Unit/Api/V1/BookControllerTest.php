@@ -10,14 +10,15 @@ class BookControllerTest extends TestCase
      * @dataProvider endPointsDataProvider
      * @param string $url
      * @param string $method
+     * @param mixed $parameters
      *
      * @return void
      */
-    public function test_ensure_all_endpoints_must_be_authenticated(string $method, string $url): void
+    public function test_ensure_all_endpoints_must_be_authenticated(string $method, string $url, mixed $parameters=''): void
     {
-        $request = $this->$method($url);
+        $request = $this->$method( route($url, $parameters) );
 
-        $request->assertStatus(200);
+        $request->assertStatus(401);
 
         $request->assertJson(['message' => 'Unauthenticated.']);
     }
@@ -26,11 +27,11 @@ class BookControllerTest extends TestCase
     {
         return 
         [
-            'get /api/v1/books'      => ['get', '/api/v1/books'],
-            'post /api/v1/books'     => ['post', '/api/v1/books'],
-            'get /api/v1/books/1'    => ['get', '/api/v1/books/1'],
-            'put /api/v1/books/1'    => ['put', '/api/v1/books/1'],
-            'delete /api/v1/books/1' => ['delete', '/api/v1/books/1'],
+            'get books.index'      => ['get', 'books.index'],
+            'post books.store'     => ['post', 'books.store'],
+            'get books.show'    => ['get', 'books.show', 1],
+            'put books.update'    => ['put', 'books.update', 1],
+            'delete books.destroy' => ['delete', 'books.destroy', 1],
         ];
     }
 }
