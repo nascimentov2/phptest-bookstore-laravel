@@ -73,8 +73,9 @@ class BookControllerTest extends TestCase
         $this->createAndAuthenticateTestUser();
 
         $book = self::booksDataProvider(1);
+        $book_id = $book[0]['id'];
 
-        $exists = Book::where($book[0])->get()->toArray();
+        $exists = Book::where(['id' => $book_id])->get()->toArray();
 
         $this->assertCount(1, $exists);
 
@@ -82,7 +83,7 @@ class BookControllerTest extends TestCase
 
         $request->assertStatus(200);
 
-        $not_exists = Book::where($book[0])->get()->toArray();
+        $not_exists = Book::where(['id' => $book_id])->get()->toArray();
 
         $this->assertCount(0, $not_exists);
     }
