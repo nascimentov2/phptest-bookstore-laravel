@@ -1,13 +1,11 @@
-name: Laravel
+name: Unit Tests
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches: [ "development" ]
 
 jobs:
-  laravel-tests:
+  unit-tests:
     
     defaults:
       run:
@@ -37,3 +35,10 @@ jobs:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
       run: vendor/bin/phpunit
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v5
+      with:
+        commit-message: Main version updated
+        base: main
+        labels: version-update
+        branch: development
