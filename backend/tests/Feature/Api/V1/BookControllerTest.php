@@ -27,11 +27,7 @@ class BookControllerTest extends TestCase
     {
         $this->createAndAuthenticateTestUser();
 
-        $book = [
-            'name'  => fake()->words(rand(3,7), true),
-            'isbn'  => fake()->isbn13(),
-            'value' => fake()->randomFloat(2,1,1000)
-        ];
+        $book = Book::factory()->definition();
 
         $request = $this->post(route('books.store'), $book);
 
@@ -61,11 +57,7 @@ class BookControllerTest extends TestCase
 
         $book = self::booksDataProvider(1);
 
-        $book_data = [
-            'name'  => 'Test Book Update',
-            'isbn'  => '9781012345123',
-            'value' => '10.50'
-        ];
+        $book_data = Book::factory()->definition();
 
         $request = $this->put(route('books.update', $book[0]['id']), $book_data);
 

@@ -27,11 +27,11 @@ class BookControllerTest extends TestCase
     {
         return 
         [
-            'get books.index'      => ['get', 'books.index'],
-            'post books.store'     => ['post', 'books.store'],
-            'get books.show'    => ['get', 'books.show', 1],
-            'put books.update'    => ['put', 'books.update', 1],
-            'delete books.destroy' => ['delete', 'books.destroy', 1],
+            'get books.index'       => ['get', 'books.index'],
+            'post books.store'      => ['post', 'books.store'],
+            'get books.show'        => ['get', 'books.show', 1],
+            'put books.update'      => ['put', 'books.update', 1],
+            'delete books.destroy'  => ['delete', 'books.destroy', 1],
         ];
     }
 }
