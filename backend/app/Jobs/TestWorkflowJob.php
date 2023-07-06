@@ -34,4 +34,9 @@ class TestWorkflowJob implements ShouldQueue
         while ($workflow->running());
             $workflow->output();
     }
+
+    public function tags(): array
+    {
+        return ['test-workflow'];
+    }
 }
