@@ -39,7 +39,7 @@ jobs:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
       run: vendor/bin/phpunit
-    - name: Reset master branch
+    - name: Reset testing branch
       run: |
         git fetch origin testing
         git reset --hard testing
