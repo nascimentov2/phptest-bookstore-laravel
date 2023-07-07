@@ -13,7 +13,11 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->job(new TestWorkflowJob)->everyThirtyMinutes(); //simulates a workflow running twice per hour
+        /**
+         * simulates a workflow running every two minutes. 
+         * This is only for testing purposes!
+         */
+        $schedule->job(TestWorkflowJob::class, 'workflow')->everyTwoMinutes();
     }
 
     /**
