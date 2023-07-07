@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->job(new TestWorkflowJob)->everyThirtyMinutes(); //simulates a workflow running once an hour
+        $schedule->job(new TestWorkflowJob)->everyThirtyMinutes(); //simulates a workflow running twice per hour
     }
 
     /**
