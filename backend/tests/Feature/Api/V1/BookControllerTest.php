@@ -27,6 +27,25 @@ class BookControllerTest extends TestCase
         $this->assertEqualsCanonicalizing($books, $books_from_json);
     }
 
+    public function test_index_paginated(): void
+    {
+        $this->createAndAuthenticateTestUser();
+
+        $books = self::booksDataProvider(50);
+
+        $request = $this->get(route('books.paginated'));
+
+        $request->assertStatus(200); 
+        
+        $json = $request->content(); //the endpoint should return json that contains all books
+
+        $books_from_json = json_decode($json, true)['data']; //data is the default wrap key returned by resource
+
+        $expected_array = array_slice($books, 0, 15); //the default pagination returns 15 per page, so we slice 15 elements from original array
+        
+        $this->assertEqualsCanonicalizing($expected_array, $books_from_json);
+    }
+
     public function test_create_single_book(): void
     {
         $this->createAndAuthenticateTestUser();
