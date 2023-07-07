@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\V1\BookController;
@@ -19,6 +18,8 @@ use App\Http\Controllers\Api\V1\BookController;
 Route::prefix('v1')->group(function () {
     
     Route::middleware(['auth:sanctum'])->group(function(){
+        
+        Route::get('books/paginated', [BookController::class, 'indexPaginated'])->name('books.paginated');
         Route::apiResource('/books', BookController::class);
     });
 });

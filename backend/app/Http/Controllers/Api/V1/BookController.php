@@ -9,6 +9,7 @@ use App\Http\Requests\Book\UpdateBookRequest;
 use App\Http\Resources\BookResource;
 use App\Models\Book;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class BookController extends Controller
@@ -21,6 +22,16 @@ class BookController extends Controller
         $this->authorize(__FUNCTION__, $book);
 
         return BookResource::collection(Book::all());
+    }
+
+    /**
+     * Display a paginated listing of the resource.
+     */
+    public function indexPaginated(Request $request, Book $book): JsonResource
+    {   
+        $this->authorize(__FUNCTION__, $book);
+
+        return BookResource::collection(Book::paginate()->withQueryString());
     }
 
     /**

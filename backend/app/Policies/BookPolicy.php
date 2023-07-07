@@ -16,6 +16,14 @@ class BookPolicy
     }
 
     /**
+     * Determine whether the user can view any models.
+     */
+    public function indexPaginated(User $user, Book $book): bool
+    {
+        return true;
+    }
+
+    /**
      * Determine whether the user can create models.
      */
     public function store(User $user, Book $book): bool
