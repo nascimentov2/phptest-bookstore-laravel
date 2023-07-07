@@ -1,0 +1,29 @@
+name: Merge to QA branch
+
+on: 
+  pull_request:
+    branches: [main]
+    types: [closed]
+jobs:
+  merge-main-to-qa:
+    if: github.event.pull_request.merged == true
+    timeout-minutes: 2
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set Git config
+      run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "Github Actions"
+    - name: Dump GitHub events
+      env:
+        GITHUB_EVENTS: ${{ toJson(github.event) }}
+      run: |
+        echo "$GITHUB_EVENTS"
+    - name: Merge main to qa
+      run: |
+          git fetch --unshallow
+          git checkout qa
+          git pull
+          git merge --no-ff main -m "Auto-merge main to qa"
+          git push
