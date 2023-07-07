@@ -26,6 +26,11 @@ class NotifyPageNotFoundResquest implements ShouldQueue
      */
     public function handle(): void
     {
-        //
+        echo "Page not found notification test";
+    }
+
+    public function tags(): array
+    {
+        return ['page-not-found', 'seo'];
     }
 }
