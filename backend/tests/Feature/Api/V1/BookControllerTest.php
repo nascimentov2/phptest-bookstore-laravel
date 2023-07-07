@@ -18,9 +18,13 @@ class BookControllerTest extends TestCase
 
         $request = $this->get(route('books.index'));
 
-        $request->assertStatus(200);
+        $request->assertStatus(200); 
+        
+        $json = $request->content(); //the endpoint should return json that contains all books
 
-        $request->assertJson(['data' => $books]);
+        $books_from_json = json_decode($json, true)['data']; //data is the default wrap key returned by resource
+
+        $this->assertEqualsCanonicalizing($books, $books_from_json);
     }
 
     public function test_create_single_book(): void
@@ -86,6 +90,10 @@ class BookControllerTest extends TestCase
         $not_exists = Book::where(['id' => $book_id])->get()->toArray();
 
         $this->assertCount(0, $not_exists);
+
+        $request = $this->get(route('books.show', $book_id));
+
+        $request->assertStatus(404);
     }
     public static function booksDataProvider(int $amount=1): array
     {

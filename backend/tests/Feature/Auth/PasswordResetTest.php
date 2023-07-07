@@ -44,4 +44,15 @@ class PasswordResetTest extends TestCase
             return true;
         });
     }
+
+    public function test_reset_password_link_is_not_sent_to_invalid_email(): void
+    {
+        Notification::fake();
+
+        $user = User::factory()->create();
+
+        $this->post(route('password.email'), ['email' => 'notexists@email.com']);
+
+        Notification::assertNotSentTo($user, ResetPassword::class);
+    }
 }
