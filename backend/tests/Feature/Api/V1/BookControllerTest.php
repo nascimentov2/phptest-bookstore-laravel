@@ -86,6 +86,10 @@ class BookControllerTest extends TestCase
         $not_exists = Book::where(['id' => $book_id])->get()->toArray();
 
         $this->assertCount(0, $not_exists);
+
+        $request = $this->get(route('books.show', $book_id));
+
+        $request->assertStatus(404);
     }
     public static function booksDataProvider(int $amount=1): array
     {
