@@ -23,7 +23,6 @@ jobs:
         echo "$GITHUB_EVENTS"
     - name: Merge main to qa
       run: |
-          git fetch --unshallow
           git checkout qa
-          git pull origin main
-          git push
+          git merge --no-ff main
+          git push origin qa
