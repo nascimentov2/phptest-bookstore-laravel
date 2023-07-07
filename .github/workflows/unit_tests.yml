@@ -21,7 +21,7 @@ jobs:
         php-version: '8.2.3'
     - uses: actions/checkout@v3
       with:
-        ref: master
+        ref: testing
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.development', '.env');"
     - name: Install Dependencies
