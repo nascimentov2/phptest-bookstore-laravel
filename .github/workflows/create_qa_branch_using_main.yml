@@ -23,5 +23,8 @@ jobs:
         echo "$GITHUB_EVENTS"
     - name: Delete and recreate QA branch using main
       run: |
+        git checkout main
+        git pull
         git push origin --delete qa
-        git branch qa
+        git checkout -b qa
+        git push -u origin qa
