@@ -38,7 +38,15 @@ jobs:
       env:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
-      run: vendor/bin/phpunit  
+      run: vendor/bin/phpunit
+    - name: Dump GitHub events
+      env:
+        GITHUB_EVENTS: ${{ toJson(github.event) }}
+      run: |
+        echo "$GITHUB_EVENTS"
+    - name: Diff between main and testing branches
+      run: |
+        git diff --name-only origin/main origin/testing
     - name: 'Create pull request'
       uses: actions/github-script@v6
       with:
