@@ -1,4 +1,4 @@
-name: Merge to QA branch
+name: Create QA branch using main
 
 on: 
   pull_request:
@@ -21,8 +21,7 @@ jobs:
         GITHUB_EVENTS: ${{ toJson(github.event) }}
       run: |
         echo "$GITHUB_EVENTS"
-    - name: Merge main to qa
+    - name: Delete and recreate QA branch using main
       run: |
-          git checkout qa
-          git merge --no-ff main
-          git push origin qa
+        git push origin --delete qa
+        git branch qa
