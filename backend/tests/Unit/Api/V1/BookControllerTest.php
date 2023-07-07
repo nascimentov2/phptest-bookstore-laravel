@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Unit\Api\V1;
+
 use Tests\TestCase;
 
 class BookControllerTest extends TestCase
