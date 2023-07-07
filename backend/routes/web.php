@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Route::fallback(function(){
 
-    \App\Jobs\NotifyPageNotFoundResquest::dispatch(); //simulates a page 404 notification using jobs and horizon
+    \App\Jobs\NotifyPageNotFoundResquest::dispatch()->onQueue('internal-notification'); //simulates a page 404 notification using jobs and horizon
 
     return response()->json([
         'message' => 'Page Not Found. If error persists, contact '.env('SUPPORT_CONTACT')], 404);
