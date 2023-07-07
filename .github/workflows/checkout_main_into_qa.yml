@@ -1,11 +1,11 @@
-name: Create QA branch using main
+name: Checkout main into QA branch
 
 on: 
   pull_request:
     branches: [main]
     types: [closed]
 jobs:
-  merge-main-to-qa:
+  checkout-main-into-qa:
     if: github.event.pull_request.merged == true
     timeout-minutes: 2
     runs-on: ubuntu-latest
