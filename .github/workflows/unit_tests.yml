@@ -1,3 +1,5 @@
+name: Run unit tests and create a pull request
+
 on:
   push:
     branches: [ "testing" ]
@@ -18,6 +20,8 @@ jobs:
       with:
         php-version: '8.2.3'
     - uses: actions/checkout@v3
+      with:
+        ref: master
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.development', '.env');"
     - name: Install Dependencies
@@ -35,10 +39,14 @@ jobs:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
       run: vendor/bin/phpunit
+    - name: Reset master branch
+      run: |
+        git fetch origin testing:testing
+        git reset --hard testing
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v5
       with:
         commit-message: ${{ github.event.head_commit.message }}
         base: main
         labels: version-update
-        branch: testing
+        branch: qa
