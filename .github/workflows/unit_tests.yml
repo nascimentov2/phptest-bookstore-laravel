@@ -49,7 +49,7 @@ jobs:
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v5
       with:
-        commit-message: ${{ github.event.head_commit.message }}
+        commit-message: "${{ github.event.head_commit.message }}"
         base: main
         labels: version-update
         branch: development
